@@ -10,8 +10,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <View>
-        <Link href="/(auth)"> Login</Link>
+      <View >
+        <Link href="/(auth)" style={{ paddingBottom: 40 }}> Login</Link>
         <Link href="/(auth)/signup"> signup</Link>
       </View>
     </View>

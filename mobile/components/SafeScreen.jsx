@@ -4,22 +4,22 @@ import colors from "../constants/colors";
 
 export default function SafeScreen({ children }) {
   const insets = useSafeAreaInsets();
+
   return (
-    <View>
-      style=
-      {[
+    <View
+      style={[
         styles.container,
         { paddingTop: insets.top, paddingBottom: insets.bottom },
       ]}
-      
-        {children}
+    >
+      {children}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.background,
-    },
-    });
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+});
