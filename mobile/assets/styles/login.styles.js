@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     color: COLORS.textDark,
+  
   },
   eyeIcon: {
     padding: 8,
