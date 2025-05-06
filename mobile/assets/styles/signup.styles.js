@@ -92,6 +92,16 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontWeight: "600",
   },
+  illustrationImage2: {
+    width: 94,
+    height: 94,
+    borderRadius: 50,
+    
+  },
+  topIllustration: {
+    alignItems: "center",
+    width: "100%",
+  },
 });
 
 export default styles;

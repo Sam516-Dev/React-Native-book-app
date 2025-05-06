@@ -57,7 +57,6 @@ const Login = () => {
                   onChangeText={setEmail}
                   placeholder="Enter your email"
                   style={styles.input}
-                  onChange={(e) => setEmail(e.target.value)}
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
@@ -80,7 +79,6 @@ const Login = () => {
                   placeholder="Enter your password"
                   secureTextEntry={showPassword}
                   style={styles.input}
-                  onChange={(e) => setPassword(e.target.value)}
                   autoCapitalize="none"
                 />
 
@@ -96,13 +94,13 @@ const Login = () => {
                 </TouchableOpacity>
               </View>
             </View>
-           
+
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
               onPress={handleLogin}
-            >
               disabled={loading}
+            >
               {loading ? (
                 <ActivityIndicator size="small" color={COLORS.white} />
               ) : (
