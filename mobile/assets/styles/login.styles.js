@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     width: width * 0.75,
     height: width * 0.75,
   },
+  illustrationImage2: {
+    width:94,
+    height: 94,
+    borderRadius: 50,
+  },
   card: {
     backgroundColor: COLORS.cardBackground,
     borderRadius: 16,
