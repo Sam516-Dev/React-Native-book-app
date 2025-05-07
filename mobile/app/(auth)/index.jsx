@@ -14,6 +14,7 @@ import styles from "../../assets/styles/login.styles";
 import myPic from "../../assets/images/reading.png";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
+import { useAuthStore } from "../../store/authStore";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -21,9 +22,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const { user, setUser } = useAuthStore();
+
   const handleLogin = () => {
     setLoading(true);
-    console.log("Logging in with:", email, password);
+  
+
+    console.log("User on zustand store is :", user);
     // Simulate login
     setTimeout(() => {
       setLoading(false);

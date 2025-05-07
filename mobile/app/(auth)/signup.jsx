@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,25 +16,35 @@ import styles from "../../assets/styles/signup.styles";
 import COLORS from "../../constants/colors";
 import myLogo from "../../assets/images/bookLogo.jpg";
 import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const router = useRouter();
+  const { register, loading } = useAuthStore();
 
-  const handleSignup = () => {
-    setLoading(true);
-    console.log("Logging in with:", email, password);
-    // Simulate login
-    setTimeout(() => {
-      setLoading(false);
-      console.log("Login successful!");
-    }, 2000);
+  const handleSignup = async () => {
+    try {
+      const result = await register(username, email, password);
+  
+      if (!result.success) {
+        Alert.alert("Error", result.message || "Signup failed");
+      } else {
+        Alert.alert("Success", "Account created successfully!");
+        // Optionally navigate to login
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    }
   };
+  
+
+  const router = useRouter();
 
   return (
     <KeyboardAvoidingView
@@ -57,8 +68,8 @@ const Signup = () => {
                   style={styles.inputIcon}
                 />
                 <TextInput
-                  value={name}
-                  onChangeText={setName}
+                  value={username}
+                  onChangeText={setUsername}
                   placeholder="John Doe"
                   style={styles.input}
                 />
