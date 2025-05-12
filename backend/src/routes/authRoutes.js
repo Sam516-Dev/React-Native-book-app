@@ -21,7 +21,6 @@ router.post("/register", async (req, res) => {
       return res
         .status(400)
         .json({ message: "Password must be at least 6 characters long" });
-        
     }
     //check if user already exists in the db
 
@@ -55,6 +54,8 @@ router.post("/register", async (req, res) => {
 
     res.status(201).json({
       token,
+      response: "User created successfully",
+      message: "User created successfully",
       user: {
         id: user._id,
         username: user.username,
@@ -98,6 +99,7 @@ router.post("/login", async (req, res) => {
         profileImage: user.profileImage,
       },
     });
+  
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });

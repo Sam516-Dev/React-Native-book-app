@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { Link } from "expo-router";
 import React, { useState } from "react";
@@ -22,18 +23,22 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, setUser } = useAuthStore();
+  const { user, login } = useAuthStore();
 
-  const handleLogin = () => {
-    setLoading(true);
-  
+  const handleLogin = async () => {
+    try {
+      const result = await login(email, password);
 
-    console.log("User on zustand store is :", user);
-    // Simulate login
-    setTimeout(() => {
-      setLoading(false);
-      console.log("Login successful!");
-    }, 2000);
+      if (!result.success) {
+        Alert.alert("Error", result.message || "Login failed");
+      } else {
+        Alert.alert("Success", "Login was successful!");
+        // Optionally navigate to login
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    }
   };
 
   return (
