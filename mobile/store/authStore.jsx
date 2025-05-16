@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
 export const useAuthStore = create((set) => ({
   isLoggedIn: false,
@@ -48,7 +49,7 @@ export const useAuthStore = create((set) => ({
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -66,7 +67,8 @@ export const useAuthStore = create((set) => ({
         isLoggedIn: true,
         loading: false,
       });
-
+      //redirect to home page
+      router.push("/HomeScreen");
       return { success: true };
     } catch (error) {
       set({ loading: false });
@@ -75,5 +77,30 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  logout: async () => {
+    set({ loading: true });
+    try {
+      await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("user");
 
+      set({ user: null, token: null, isLoggedIn: false, loading: false });
+      router.push("/");
+    } catch (error) {
+      set({ loading: false });
+      console.error("Error during logout:", error.message);
+    }
+  },
+
+  checkAuth: async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const userJson = await AsyncStorage.getItem("user");
+
+      const user = userJson ? JSON.parse(userJson) : null;
+
+      set({ token, user });
+    } catch (error) {
+      console.error("Error checking auth:", error.message);
+    }
+  },
 }));

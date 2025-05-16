@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { Link } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../assets/styles/login.styles";
 import myPic from "../../assets/images/reading.png";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,7 +23,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, login } = useAuthStore();
+  const { user, login, checkAuth } = useAuthStore();
+
+
 
   const handleLogin = async () => {
     try {
@@ -32,7 +34,7 @@ const Login = () => {
       if (!result.success) {
         Alert.alert("Error", result.message || "Login failed");
       } else {
-        Alert.alert("Success", "Login was successful!");
+        // Alert.alert("Success", "Login was successful!");
         // Optionally navigate to login
       }
     } catch (error) {
